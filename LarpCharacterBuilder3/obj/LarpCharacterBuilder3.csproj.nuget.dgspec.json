@@ -10,11 +10,11 @@
         "projectUniqueName": "C:\\Users\\nbonilla\\Documents\\larp_character_builder\\LarpCharacterBuilder3\\LarpCharacterBuilder3.csproj",
         "projectName": "LarpCharacterBuilder3",
         "projectPath": "C:\\Users\\nbonilla\\Documents\\larp_character_builder\\LarpCharacterBuilder3\\LarpCharacterBuilder3.csproj",
-        "packagesPath": "C:\\Users\\la.nbonilla\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\nbonilla\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\nbonilla\\Documents\\larp_character_builder\\LarpCharacterBuilder3\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\la.nbonilla\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\nbonilla\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,13 +38,25 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "HotChocolate.AspNetCore": {
+              "target": "Package",
+              "version": "[11.0.0-preview.134, )"
+            },
+            "HotChocolate.AspNetCore.Playground": {
+              "target": "Package",
+              "version": "[11.0.0-preview.134, )"
+            },
+            "HotChocolate.Types.Selections": {
+              "target": "Package",
+              "version": "[11.0.0-preview.134, )"
+            },
             "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
               "target": "Package",
               "version": "[3.1.4, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "target": "Package",
-              "version": "[5.0.0-preview.4.20220.10, )"
+              "version": "[3.1.4, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",

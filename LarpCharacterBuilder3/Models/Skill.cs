@@ -4,6 +4,7 @@ namespace LarpCharacterBuilder3.Models
 {
     public class Skill
     {
+        public int Id { get; set; }
         public Skill ParentSkill;
         private ICollection<Skill> _children;
         public string Name { get; set; }
