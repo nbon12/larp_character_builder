@@ -1,5 +1,7 @@
-﻿using HotChocolate;
+﻿using AutoMapper;
+using HotChocolate;
 using LarpCharacterBuilder3.Logic;
+using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LarpCharacterBuilder3
@@ -7,9 +9,11 @@ namespace LarpCharacterBuilder3
     public abstract class ControllerBasicCrud<TEntity> : ControllerBase, IControllerBasicCrud<TEntity>
     {
         private readonly IRepository<TEntity> _repository;
-        public ControllerBasicCrud([Service] IRepository<TEntity> repository)
+        private readonly IMapper _mapper;
+        public ControllerBasicCrud([Service] IRepository<TEntity> repository, [Service] IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
         public ActionResult<TEntity> Index()
         {
@@ -32,9 +36,10 @@ namespace LarpCharacterBuilder3
             return Ok("Deleted Character with ID: " + id);
         }
 
-        public ActionResult Update<TDto>(long id, TEntity entity, TDto dto)
+        public ActionResult Update<TEntityy, TUpdateDto>(long id, Delta<TUpdateDto> deltaDto) where TUpdateDto : class
         {
-            _repository.Update<TDto>(id, entity, dto);
+            TEntityy deltaEntity = _mapper.Map<TEntityy>(deltaDto);
+            _repository.Update(id, deltaEntity);
             return Ok("Updated Character ID: " + id);
         }
     }

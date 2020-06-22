@@ -18,19 +18,19 @@ namespace LarpCharacterBuilder3.Logic
             _dbContext = dbContext;
             _mapper = _mapper;
         }
-        public IQueryable<TEntity> getAll()
+        public IQueryable<TEntity> GetAll()
         {
             return _dbContext.Set<TEntity>().AsQueryable();
         }
 
-        public IQueryable<TEntity> get(long id)
+        public IQueryable<TEntity> Get(long id)
         {
-            return getAll().Where(entity => entity.Id == id);
+            return GetAll().Where(entity => entity.Id == id);
         }
 
-        public void delete(long id)
+        public void Delete(long id)
         {
-            var entity = get(id).FirstOrDefault() ?? throw new Exception("ID not found, cannot delete.");
+            var entity = Get(id).FirstOrDefault() ?? throw new Exception("ID not found, cannot delete.");
             _dbContext.Set<TEntity>().Remove(entity);
             _dbContext.SaveChanges();
         }
@@ -39,20 +39,14 @@ namespace LarpCharacterBuilder3.Logic
         /**
          * Type DTO is the DTO to convert from.
          */
-        public void Update<TDto>(long id, TEntity entity, TDto dto)
+        public void Update(long id, TEntity entity)
         {
-            var untrackedEntity = get(id).AsNoTracking().FirstOrDefault();
+            var untrackedEntity = Get(id).AsNoTracking().FirstOrDefault();
             if (untrackedEntity == null) throw new Exception("Cannot update. ID not found: " + id);
-            entity = validateUpdate(id, entity);
-            var type = entity.GetType();
-            //var dto = _mapper.Map<>(entity);
-            var dtoOfCurrentState = _mapper.Map<TDto>(entity); // get a DTO representation of the current state of the model.
-            dto.Patch(titleDto);
-            var updatedDto = _titleService.Update(_mapper.Map<Title>(titleDto));
-
-            
-            _dbContext.Update(entity);
+            untrackedEntity = validateUpdate(id, untrackedEntity);
+            _dbContext.Update(untrackedEntity);
         }
+        
 
         /**
          * Returns the validated Entity

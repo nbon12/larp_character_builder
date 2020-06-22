@@ -13,10 +13,10 @@ namespace LarpCharacterBuilder3.Logic
         /*private readonly LarpBuilderContext _dbContext;
         private readonly IMapper _mapper;*/
 
-        public CharacterRepository([Service] LarpBuilderContext dbContext, [Service] IMapper mapper) : base(dbContext, mapper)
+        public CharacterRepository(
+            [Service] LarpBuilderContext dbContext,
+            [Service] IMapper mapper) : base(dbContext, mapper)
         {
-            /*_dbContext = dbContext;
-            _mapper = mapper;*/
         }
 
         public override Character validateUpdate(long id, Character entity)
@@ -27,7 +27,7 @@ namespace LarpCharacterBuilder3.Logic
 
         public void Update(long id, Character entity)
         {
-            base.Update<CharacterDto>(id, entity);
+            base.Update(id, entity);
         }
     }
 }

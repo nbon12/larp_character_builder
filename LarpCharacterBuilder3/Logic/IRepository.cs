@@ -8,6 +8,6 @@ namespace LarpCharacterBuilder3.Logic
         public IQueryable<T> GetAll();
         public IQueryable<T> Get(long id);
         public void Delete(long id);
-        public void Update<TDto>(long id, T entity);
+        public void Update(long id, T entity);
     }
 }

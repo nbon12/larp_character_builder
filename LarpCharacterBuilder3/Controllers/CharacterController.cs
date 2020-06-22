@@ -1,4 +1,5 @@
-﻿using HotChocolate;
+﻿using AutoMapper;
+using HotChocolate;
 using LarpCharacterBuilder3.Logic;
 using LarpCharacterBuilder3.Models;
 using Microsoft.AspNet.OData;
@@ -10,14 +11,14 @@ namespace LarpCharacterBuilder3
     {
         private readonly ICharacterRepository _characterRepository;
 
-        public CharacterController(ICharacterRepository characterRepository) : base(characterRepository)
+        public CharacterController(ICharacterRepository characterRepository, [Service] IMapper mapper) : base(characterRepository, mapper)
         {
             _characterRepository = characterRepository;
         }
 
-        public new ActionResult Update(long id, Character character, [FromBody] Delta<CharacterDto> characterDto)
+        public new ActionResult Update(long id, [FromBody] Delta<CharacterDto> characterDto)
         {
-            base.Update<CharacterDto>(id, character, characterDto);
+            base.Update<Character, CharacterDto>(id, characterDto);
             return Ok();
         }
     }
