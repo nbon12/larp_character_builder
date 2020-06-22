@@ -2,9 +2,9 @@
 
 namespace LarpCharacterBuilder3.Models
 {
-    public class Character
+    public class Character : IEntity
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string Name { get; set; }
         public int? TotalCp { get; set; }
         public ICollection<CharacterSkill> CharacterSkills { get; set; }

@@ -1,13 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HotChocolate;
+using LarpCharacterBuilder3.Logic;
+using LarpCharacterBuilder3.Models;
+using Microsoft.AspNet.OData;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LarpCharacterBuilder3
 {
-    public class CharacterController : Controller
+    public class CharacterController : ControllerBasicCrud<Character>
     {
-        // GET
-        public IActionResult Index()
+        private readonly ICharacterRepository _characterRepository;
+
+        public CharacterController(ICharacterRepository characterRepository) : base(characterRepository)
         {
-            return View();
+            _characterRepository = characterRepository;
+        }
+
+        public new ActionResult Update(long id, Character character, [FromBody] Delta<CharacterDto> characterDto)
+        {
+            base.Update<CharacterDto>(id, character, characterDto);
+            return Ok();
         }
     }
 }

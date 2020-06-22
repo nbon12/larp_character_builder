@@ -2,12 +2,12 @@
 
 namespace LarpCharacterBuilder3.Models
 {
-    public class CharacterEvent
+    public class CharacterEvent : IEntity
     {
-        public int Id { get; set; }
+        public long EventId { get; set; }
         public Event Event { get; set; }
-
-        public Character Characters { get; set; }
+        public long CharacterId { get; set; }
+        public Character Character { get; set; }
         
     }
 }

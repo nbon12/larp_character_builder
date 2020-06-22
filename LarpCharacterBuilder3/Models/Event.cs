@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LarpCharacterBuilder3.Models
 {
-    public class Event
+    public class Event : IEntity
     {
         public int Id { get; set; }
         public Character Character { get; set; }

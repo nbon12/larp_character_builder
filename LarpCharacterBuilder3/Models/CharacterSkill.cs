@@ -1,8 +1,14 @@
-﻿namespace LarpCharacterBuilder3.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LarpCharacterBuilder3.Models
 {
-    public class CharacterSkill
+    public class CharacterSkill : IEntity
     {
-        public Skill skill { get; set; }
-        public Character character { get; set; }
+        
+        public long CharacterId { get; set; }
+        
+        public long SkillId { get; set; }
+        public Skill Skill { get; set; }
+        public Character Character { get; set; }
     }
 }

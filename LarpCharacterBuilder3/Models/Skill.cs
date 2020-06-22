@@ -2,7 +2,7 @@
 
 namespace LarpCharacterBuilder3.Models
 {
-    public class Skill
+    public class Skill : IEntity
     {
         public int Id { get; set; }
         public Skill ParentSkill;
@@ -10,6 +10,7 @@ namespace LarpCharacterBuilder3.Models
         public string Name { get; set; }
         public int? Cost { get; set; }
         public string Description { get; set; }
+        public ICollection<CharacterSkill> CharacterSkills;
 
         public ICollection<Skill> Children
         {
