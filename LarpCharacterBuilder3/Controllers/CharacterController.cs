@@ -18,7 +18,7 @@ namespace LarpCharacterBuilder3
 
         public new ActionResult Update(long id, [FromBody] Delta<CharacterDto> characterDto)
         {
-            base.Update<Character, CharacterDto>(id, characterDto);
+            base.Update(id, characterDto);
             return Ok();
         }
     }

@@ -39,12 +39,15 @@ namespace LarpCharacterBuilder3.Logic
         /**
          * Type DTO is the DTO to convert from.
          */
-        public void Update(long id, TEntity entity)
+        public void Update(long id, TEntity updatedModel)
         {
-            var untrackedEntity = Get(id).AsNoTracking().FirstOrDefault();
-            if (untrackedEntity == null) throw new Exception("Cannot update. ID not found: " + id);
-            untrackedEntity = validateUpdate(id, untrackedEntity);
-            _dbContext.Update(untrackedEntity);
+            //#var untrackedEntity = Get(id).AsNoTracking().FirstOrDefault();
+            //if (untrackedEntity == null) throw new Exception("Cannot update. ID not found: " + id);
+            updatedModel = validateUpdate(id, updatedModel);
+            //updatedModel.Id = untrackedEntity.Id;
+            Console.WriteLine(updatedModel.Id);
+            _dbContext.Update(updatedModel);
+            _dbContext.SaveChanges();
         }
         
 

@@ -1,12 +1,16 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using HotChocolate;
 using LarpCharacterBuilder3.Logic;
+using LarpCharacterBuilder3.Models;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace LarpCharacterBuilder3
 {
-    public abstract class ControllerBasicCrud<TEntity> : ControllerBase, IControllerBasicCrud<TEntity>
+    public abstract class ControllerBasicCrud<TEntity> : ControllerBase, IControllerBasicCrud<TEntity> where TEntity : IEntity
     {
         private readonly IRepository<TEntity> _repository;
         private readonly IMapper _mapper;
@@ -36,10 +40,15 @@ namespace LarpCharacterBuilder3
             return Ok("Deleted Character with ID: " + id);
         }
 
-        public ActionResult Update<TEntityy, TUpdateDto>(long id, Delta<TUpdateDto> deltaDto) where TUpdateDto : class
+        [HttpPost("{id:long}")]
+        public ActionResult Update<TUpdateDto>(long id, [FromBody] Delta<TUpdateDto> deltaDto) where TUpdateDto : class
         {
-            TEntityy deltaEntity = _mapper.Map<TEntityy>(deltaDto);
-            _repository.Update(id, deltaEntity);
+            //TEntity deltaEntity = _mapper.Map<TEntity>(deltaDto);
+            TEntity currentModel = _repository.Get(id).AsNoTracking().FirstOrDefault();
+            TUpdateDto currentModelAsDto = _mapper.Map<TUpdateDto>(currentModel);
+            deltaDto.Patch(currentModelAsDto);
+            TEntity updatedCurrentModel = _mapper.Map<TEntity>(currentModelAsDto);
+            _repository.Update(id, updatedCurrentModel);
             return Ok("Updated Character ID: " + id);
         }
     }
