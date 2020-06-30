@@ -25,10 +25,14 @@
 
   <ItemGroup>
     <Content Remove="Pages\Character.cshtml" />
-    <Content Update="Pages\CharacterTest.cshtml">
+    <Content Update="Pages\Characters.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations" />
   </ItemGroup>
 
 </Project>

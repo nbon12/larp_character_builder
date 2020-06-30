@@ -19,14 +19,14 @@ namespace LarpCharacterBuilder3.Migrations
 
             modelBuilder.Entity("LarpCharacterBuilder3.Models.Character", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int?>("TotalCp")
+                    b.Property<int>("StartingCp")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -42,17 +42,12 @@ namespace LarpCharacterBuilder3.Migrations
                     b.Property<long>("EventId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("CharacterId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EventId1")
-                        .HasColumnType("int");
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
                     b.HasKey("CharacterId", "EventId");
 
-                    b.HasIndex("CharacterId1");
-
-                    b.HasIndex("EventId1");
+                    b.HasIndex("EventId");
 
                     b.ToTable("CharacterEvents");
                 });
@@ -65,29 +60,24 @@ namespace LarpCharacterBuilder3.Migrations
                     b.Property<long>("SkillId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("CharacterId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SkillId1")
-                        .HasColumnType("int");
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
                     b.HasKey("CharacterId", "SkillId");
 
-                    b.HasIndex("CharacterId1");
-
-                    b.HasIndex("SkillId1");
+                    b.HasIndex("SkillId");
 
                     b.ToTable("CharacterSkills");
                 });
 
             modelBuilder.Entity("LarpCharacterBuilder3.Models.Event", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    b.Property<int?>("CharacterId")
-                        .HasColumnType("int");
+                    b.Property<long?>("CharacterId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime(6)");
@@ -107,9 +97,9 @@ namespace LarpCharacterBuilder3.Migrations
 
             modelBuilder.Entity("LarpCharacterBuilder3.Models.Skill", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
                     b.Property<int?>("Cost")
                         .HasColumnType("int");
@@ -120,8 +110,8 @@ namespace LarpCharacterBuilder3.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int?>("SkillId")
-                        .HasColumnType("int");
+                    b.Property<long?>("SkillId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -134,22 +124,30 @@ namespace LarpCharacterBuilder3.Migrations
                 {
                     b.HasOne("LarpCharacterBuilder3.Models.Character", "Character")
                         .WithMany("CharacterEvents")
-                        .HasForeignKey("CharacterId1");
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LarpCharacterBuilder3.Models.Event", "Event")
                         .WithMany()
-                        .HasForeignKey("EventId1");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LarpCharacterBuilder3.Models.CharacterSkill", b =>
                 {
                     b.HasOne("LarpCharacterBuilder3.Models.Character", "Character")
                         .WithMany("CharacterSkills")
-                        .HasForeignKey("CharacterId1");
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LarpCharacterBuilder3.Models.Skill", "Skill")
                         .WithMany()
-                        .HasForeignKey("SkillId1");
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LarpCharacterBuilder3.Models.Event", b =>

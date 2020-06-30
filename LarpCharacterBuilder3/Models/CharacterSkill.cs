@@ -2,7 +2,7 @@
 
 namespace LarpCharacterBuilder3.Models
 {
-    public class CharacterSkill : IEntity
+    public class CharacterSkill : BaseEntity
     {
         
         public long CharacterId { get; set; }

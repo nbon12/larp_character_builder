@@ -2,11 +2,11 @@
 
 namespace LarpCharacterBuilder3.Models
 {
-    public class Character : IEntity
+    public class Character : BaseEntity
     {
-        //public int Id { get; set; }
+        private static readonly int GlobalStartingCp = 15;
         public string Name { get; set; }
-        public int? TotalCp { get; set; }
+        public int StartingCp { get; set; } = GlobalStartingCp;
         public ICollection<CharacterSkill> CharacterSkills { get; set; }
         public ICollection<CharacterEvent> CharacterEvents { get; set; }
     }

@@ -1,5 +1,5 @@
 ﻿@page
-@model IndexModel
+@model LarpCharacterBuilder3.PageModels.Character.IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
@@ -8,3 +8,31 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<h1>All Characters</h1>
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var character in Model.Characters)
+            {
+                <tr>
+                    <td> @character.Id  </td>
+                    <td>@character.Name</td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@character.Id">Edit</a> |
+                        <button type="submit" asp-page-handler="delete"
+                                asp-route-id="@character.Id">delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-page="Create">Create New</a>
+</form>

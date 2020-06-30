@@ -1,0 +1,28 @@
+﻿@page
+@model LarpCharacterBuilder3.PageModels.Character.CreateModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Characters";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>@ViewData["Title"]</h1>
+    <div>
+        This is the Character Sheet.
+    </div>
+    <p>Enter a Character name:</p>
+    
+    <form method="post">
+        Name:
+        <input asp-for="Character.Name" />
+        CP:
+        <input asp-for="Character.StartingCp" />
+        <input type="submit" />
+
+    </form>
+    </body>
+</html>

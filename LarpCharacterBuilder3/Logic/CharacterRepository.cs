@@ -21,13 +21,8 @@ namespace LarpCharacterBuilder3.Logic
 
         public override Character validateUpdate(long id, Character entity)
         {
-            Console.WriteLine("Validation passed.");
+            Console.WriteLine("Validation Not performed.");
             return entity;
-        }
-
-        public void Update(long id, Character entity)
-        {
-            base.Update(id, entity);
         }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LarpCharacterBuilder3.Migrations
 {
-    public partial class InitialCreate4 : Migration
+    public partial class InitialCreate2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,10 +12,10 @@ namespace LarpCharacterBuilder3.Migrations
                 name: "Character",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    TotalCp = table.Column<int>(nullable: true)
+                    StartingCp = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -23,12 +23,34 @@ namespace LarpCharacterBuilder3.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Skill",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Cost = table.Column<int>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    SkillId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Skill", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Skill_Skill_SkillId",
+                        column: x => x.SkillId,
+                        principalTable: "Skill",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Event",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CharacterId = table.Column<int>(nullable: true),
+                    CharacterId = table.Column<long>(nullable: true),
                     DateTime = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true)
@@ -45,78 +67,68 @@ namespace LarpCharacterBuilder3.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Skill",
+                name: "CharacterSkills",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Cost = table.Column<int>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    CharacterId = table.Column<int>(nullable: true),
-                    SkillId = table.Column<int>(nullable: true)
+                    CharacterId = table.Column<long>(nullable: false),
+                    SkillId = table.Column<long>(nullable: false),
+                    Id = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Skill", x => x.Id);
+                    table.PrimaryKey("PK_CharacterSkills", x => new { x.CharacterId, x.SkillId });
                     table.ForeignKey(
-                        name: "FK_Skill_Character_CharacterId",
+                        name: "FK_CharacterSkills_Character_CharacterId",
                         column: x => x.CharacterId,
                         principalTable: "Character",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Skill_Skill_SkillId",
+                        name: "FK_CharacterSkills_Skill_SkillId",
                         column: x => x.SkillId,
                         principalTable: "Skill",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CharacterEvent",
+                name: "CharacterEvents",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    EventId = table.Column<int>(nullable: true),
-                    CharactersId = table.Column<int>(nullable: true)
+                    EventId = table.Column<long>(nullable: false),
+                    CharacterId = table.Column<long>(nullable: false),
+                    Id = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CharacterEvent", x => x.Id);
+                    table.PrimaryKey("PK_CharacterEvents", x => new { x.CharacterId, x.EventId });
                     table.ForeignKey(
-                        name: "FK_CharacterEvent_Character_CharactersId",
-                        column: x => x.CharactersId,
+                        name: "FK_CharacterEvents_Character_CharacterId",
+                        column: x => x.CharacterId,
                         principalTable: "Character",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CharacterEvent_Event_EventId",
+                        name: "FK_CharacterEvents_Event_EventId",
                         column: x => x.EventId,
                         principalTable: "Event",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CharacterEvent_CharactersId",
-                table: "CharacterEvent",
-                column: "CharactersId");
+                name: "IX_CharacterEvents_EventId",
+                table: "CharacterEvents",
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CharacterEvent_EventId",
-                table: "CharacterEvent",
-                column: "EventId");
+                name: "IX_CharacterSkills_SkillId",
+                table: "CharacterSkills",
+                column: "SkillId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Event_CharacterId",
                 table: "Event",
-                column: "CharacterId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Skill_CharacterId",
-                table: "Skill",
                 column: "CharacterId");
 
             migrationBuilder.CreateIndex(
@@ -128,13 +140,16 @@ namespace LarpCharacterBuilder3.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CharacterEvent");
+                name: "CharacterEvents");
 
             migrationBuilder.DropTable(
-                name: "Skill");
+                name: "CharacterSkills");
 
             migrationBuilder.DropTable(
                 name: "Event");
+
+            migrationBuilder.DropTable(
+                name: "Skill");
 
             migrationBuilder.DropTable(
                 name: "Character");
