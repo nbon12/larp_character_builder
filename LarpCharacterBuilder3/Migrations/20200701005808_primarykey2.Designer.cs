@@ -3,14 +3,16 @@ using System;
 using LarpCharacterBuilder3.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LarpCharacterBuilder3.Migrations
 {
     [DbContext(typeof(LarpBuilderContext))]
-    partial class LarpBuilderContextModelSnapshot : ModelSnapshot
+    [Migration("20200701005808_primarykey2")]
+    partial class primarykey2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,6 +60,9 @@ namespace LarpCharacterBuilder3.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<long>("SkillId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Id")
                         .HasColumnType("bigint");
 
                     b.HasKey("CharacterId", "SkillId");

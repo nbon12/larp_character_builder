@@ -25,7 +25,7 @@
                     <td> @character.Id  </td>
                     <td>@character.Name</td>
                     <td>
-                        <a asp-page="./Edit" asp-route-id="@character.Id">Edit</a> |
+                        <a asp-page="./CharacterSheet" asp-route-id="@character.Id">Edit</a> |
                         <button type="submit" asp-page-handler="delete"
                                 asp-route-id="@character.Id">delete
                         </button>

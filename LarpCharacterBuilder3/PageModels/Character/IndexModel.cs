@@ -23,7 +23,7 @@ namespace LarpCharacterBuilder3.PageModels.Character
             Characters = await _context.Character.ToListAsync();
         }
 
-        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        public async Task<IActionResult> OnPostDeleteAsync(long id)
         {
             var contact = await _context.Character.FindAsync(id);
 
