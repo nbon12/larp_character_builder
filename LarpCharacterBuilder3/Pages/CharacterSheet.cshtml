@@ -17,8 +17,10 @@
     }
 }
 <article>
-    <p>Total CP: Not yet calculated</p>
-    <p>CP Left to spend: Not yet calculated @Model.CpRemaining</p>
+    <p>Total CP: @Model.TotalCp</p>
+    <p>CP Spent: @Model.CpSpent</p>
+    <p>CP available to spend: @Model.CpRemaining</p>
+    <p>Games attended: @Model.GamesAttended</p>
 </article>
 <form method="post">
     <div asp-validation-summary="All"></div>

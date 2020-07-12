@@ -27,6 +27,9 @@ namespace LarpCharacterBuilder3.PageModels.Character
         [BindProperty] public IList<Models.CharacterSkill> CharacterSkills { get; set; }
         [BindProperty] public IList<Models.Skill> Skills { get; set; }
         [BindProperty] public int CpRemaining { get; set; }
+        [BindProperty] public int GamesAttended { get; set; }
+        [BindProperty] public int TotalCp { get; set; }
+        [BindProperty] public int CpSpent { get; set; }
         
         [TempData] public string Message { get; set; }
         [TempData] public string MessageAlert { get; set; } // danger / primary / warning / info / see bootstrap for HTML alert types.
@@ -40,6 +43,9 @@ namespace LarpCharacterBuilder3.PageModels.Character
                 .ToList();
             Skills = _larpBuilderContext.Skill.ToList();
             CpRemaining = _characterRepository.GetCpRemaining(Character.Id);
+            GamesAttended = _characterRepository.GetGamesAttendedCount(Character.Id);
+            CpSpent = _characterRepository.GetCpSpent(Character.Id);
+            TotalCp = _characterRepository.GetTotalCp(Character.Id);
             if (Character == null)
             {
                 return RedirectToPage("./Index");
