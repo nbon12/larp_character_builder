@@ -39,7 +39,7 @@ namespace LarpCharacterBuilder3.PageModels.Character
                 .Include(c => c.Skill)
                 .ToList();
             Skills = _larpBuilderContext.Skill.ToList();
-            CpRemaining = await _characterRepository.GetCpRemaining(Character.Id);
+            CpRemaining = _characterRepository.GetCpRemaining(Character.Id);
             if (Character == null)
             {
                 return RedirectToPage("./Index");

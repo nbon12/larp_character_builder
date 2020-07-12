@@ -5,6 +5,6 @@ namespace LarpCharacterBuilder3.Logic
 {
     public interface ICharacterRepository : IRepository<Character>
     {
-        public Task<int> GetCpRemaining(long characterId);
+        public int GetCpRemaining(long characterId);
     }
 }

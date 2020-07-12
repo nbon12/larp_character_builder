@@ -2,16 +2,15 @@
 
 namespace LarpCharacterBuilder3.Models
 {
-    public class CharacterEvent
+    /// <summary>
+    /// Represents a grant or gift of CP to a character.
+    /// </summary>
+    public class CpGrant : BaseEntity
     {
-        [ForeignKey("Event")]
-        public long EventId { get; set; }
-        
-        public Event Event { get; set; }
-        
         [ForeignKey("Character")]
         public long CharacterId { get; set; }
-        
         public Character Character { get; set; }
+        public int Amount { get; set; } = 0;
+        public string Reason { get; set; } = "";
     }
 }

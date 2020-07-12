@@ -22,6 +22,7 @@ namespace LarpCharacterBuilder3.Data
         public DbSet<Character> Character { get; set; }
         public DbSet<Skill> Skill { get; set; }
         public DbSet<Event> Event { get; set; }
+        public DbSet<CpGrant> CpGrant { get; set; }
         public DbSet<CharacterEvent> CharacterEvents { get; set; }
         public DbSet<CharacterSkill> CharacterSkills { get; set; }
         

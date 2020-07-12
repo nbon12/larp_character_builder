@@ -30,9 +30,44 @@ namespace LarpCharacterBuilder3.Logic
             return entity;
         }
 
-        public async Task<int> GetCpRemaining(long characterId)
+        public int GetCpRemaining(long characterId)
         {
-            return _dapperDataSession.Query<int>("SELECT 1 FROM dual").FirstOrDefault();
+            return GetTotalCp(characterId) - GetCpSpent(characterId);
+        }
+
+        public int GetTotalCp(long characterId)
+        {
+            return Character.GlobalStartingCp + GetGamesAttendedCount(characterId) * 2
+                + GetCharacterAdditionalCp(characterId);
+        }
+
+        private int GetCharacterAdditionalCp(long characterId)
+        {
+            //TODO: return SUM of additional CP grants.
+            return 0;
+        }
+
+        public int GetGamesAttendedCount(long characterId)
+        {
+            return _dapperDataSession.Query<int>(
+                @"
+                SELECT COALESCE(count(*), 0) FROM `larpbuilder`.characterevents ce
+                WHERE ce.CharacterId = @characterId
+                ", new {characterId = characterId}
+            ).FirstOrDefault();
+        }
+
+        public int GetCpSpent(long characterId)
+        {
+            return _dapperDataSession.Query<int>(
+                @"
+                SELECT COALESCE(sum(cost), 0)
+                FROM `larpbuilder`.characterskills t
+                JOIN `larpbuilder`.skill s on t.SkillId = s.Id
+                WHERE t.CharacterId = @characterId
+    
+                ", new {characterId = characterId}
+            ).FirstOrDefault();
         }
     }
 }

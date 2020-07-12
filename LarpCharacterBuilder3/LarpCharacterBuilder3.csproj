@@ -22,6 +22,17 @@
 
   <ItemGroup>
     <Compile Remove="Models\Query.cs" />
+    <Compile Remove="Migrations\20200701002834_parentskillcolumnname.cs" />
+    <Compile Remove="Migrations\20200701002834_parentskillcolumnname.Designer.cs" />
+    <Compile Remove="Migrations\20200701005634_primarykey.cs" />
+    <Compile Remove="Migrations\20200701005634_primarykey.Designer.cs" />
+    <Compile Remove="Migrations\20200701005808_primarykey2.cs" />
+    <Compile Remove="Migrations\20200701005808_primarykey2.Designer.cs" />
+    <Compile Remove="Migrations\20200701010138_primarykey3.cs" />
+    <Compile Remove="Migrations\20200701010138_primarykey3.Designer.cs" />
+    <Compile Remove="Migrations\20200712214623_fixEvents.cs" />
+    <Compile Remove="Migrations\20200712214623_fixEvents.Designer.cs" />
+    <Compile Remove="Migrations\LarpBuilderContextModelSnapshot.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,10 +49,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations" />
   </ItemGroup>
 
 </Project>

@@ -42,9 +42,6 @@ namespace LarpCharacterBuilder3.Migrations
                     b.Property<long>("EventId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("Id")
-                        .HasColumnType("bigint");
-
                     b.HasKey("CharacterId", "EventId");
 
                     b.HasIndex("EventId");
@@ -67,27 +64,53 @@ namespace LarpCharacterBuilder3.Migrations
                     b.ToTable("CharacterSkills");
                 });
 
+            modelBuilder.Entity("LarpCharacterBuilder3.Models.CpGrant", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<long>("CharacterId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CharacterId");
+
+                    b.ToTable("CpGrant");
+                });
+
             modelBuilder.Entity("LarpCharacterBuilder3.Models.Event", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("CharacterId")
-                        .HasColumnType("bigint");
+                    b.Property<bool>("Cancelled")
+                        .HasColumnType("tinyint(1)");
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<DateTime>("EndDateTime")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("PlotNotes")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("Notes")
+                    b.Property<string>("PublicDescription")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime>("StartDateTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Title")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CharacterId");
 
                     b.ToTable("Event");
                 });
@@ -150,11 +173,13 @@ namespace LarpCharacterBuilder3.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LarpCharacterBuilder3.Models.Event", b =>
+            modelBuilder.Entity("LarpCharacterBuilder3.Models.CpGrant", b =>
                 {
                     b.HasOne("LarpCharacterBuilder3.Models.Character", "Character")
                         .WithMany()
-                        .HasForeignKey("CharacterId");
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LarpCharacterBuilder3.Models.Skill", b =>
