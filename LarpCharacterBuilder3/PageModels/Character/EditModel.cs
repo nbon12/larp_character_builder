@@ -7,6 +7,7 @@ using LarpCharacterBuilder3.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 
 namespace LarpCharacterBuilder3.PageModels.Character
 {
@@ -22,6 +23,11 @@ namespace LarpCharacterBuilder3.PageModels.Character
         [BindProperty] public Models.Character Character { get; set; }
         [BindProperty] public IList<Models.CharacterSkill> CharacterSkills { get; set; }
         [BindProperty] public IList<Models.Skill> Skills { get; set; }
+        
+        
+        [TempData] public string Message { get; set; }
+        [TempData] public string MessageAlert { get; set; } // danger / primary / warning / info / see bootstrap for HTML alert types.
+        
         public async Task<IActionResult> OnGetAsync(long id)
         {
             Character = await _larpBuilderContext.Character.FindAsync(id);
@@ -59,9 +65,9 @@ namespace LarpCharacterBuilder3.PageModels.Character
             return RedirectToPage("./Index");
         }
 
-        public async Task<IActionResult> OnPostLearn(int skillId)
+        public async Task<IActionResult> OnPostLearn(int skillId, string skillName)
         {
-            Console.WriteLine("TODO: add a skill on character with ID: " + Character.Id + "and skill ID: " + skillId);
+            Console.WriteLine("Character ID: " + Character.Id + " attempting to learn Skill ID: " + skillId);
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -73,11 +79,25 @@ namespace LarpCharacterBuilder3.PageModels.Character
                 SkillId = skillId
             };
             _larpBuilderContext.CharacterSkills.Add(learnMe);
-            await _larpBuilderContext.SaveChangesAsync();
 
+            try
+            {
+                await _larpBuilderContext.SaveChangesAsync();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("CharacterId " + Character.Id + " already knows the skillId" + skillId);
+                Message = "Character already knows " + skillName;
+                MessageAlert = "danger";
+                return RedirectToPage();
+            }
+
+            Message = "Learned " + skillName;
+            Console.WriteLine("INFO: SKILL LEARNED: " + Character.Id + " learned " + skillName);
+            MessageAlert = "primary";
             return RedirectToPage();
         }
-        public async Task<IActionResult> OnPostForget(long skillId)
+        public async Task<IActionResult> OnPostForget(long skillId, string skillName)
         {
             var contact = await _larpBuilderContext.CharacterSkills.FindAsync(Character.Id, skillId);
 
@@ -86,7 +106,9 @@ namespace LarpCharacterBuilder3.PageModels.Character
                 _larpBuilderContext.CharacterSkills.Remove(contact);
                 await _larpBuilderContext.SaveChangesAsync();
             }
-
+            Message = "Forgot " + skillName;
+            Console.WriteLine("INFO: SKILL LEARNED: " + Character.Id + " learned " + skillName);
+            MessageAlert = "info";
             return RedirectToPage();
         }
     }
