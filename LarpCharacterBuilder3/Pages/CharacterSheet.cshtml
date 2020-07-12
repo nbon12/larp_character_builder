@@ -11,44 +11,51 @@
 
 <h1>Character Sheet - @Model.Character.Name</h1>
 @{
-    if (TempData["Message"] != null)
-    {
-        <aside class="alert alert-@TempData["MessageAlert"]" role="alert">@TempData["Message"]</aside>
-    }
-}
-<article>
-    <p>Total CP: @Model.TotalCp</p>
-    <p>CP Spent: @Model.CpSpent</p>
-    <p>CP available to spend: @Model.CpRemaining</p>
-    <p>Games attended: @Model.GamesAttended</p>
-</article>
-<form method="post">
-    <div asp-validation-summary="All"></div>
-    <input asp-for="Character.Id" type="hidden" />
-    <div>
-        <label asp-for="Character.Name"></label>
-        <div>
-            <input asp-for="Character.Name" />
-            <span asp-validation-for="Character.Name"></span>
-        </div>
-        <h2>Skills:</h2> 
-        @foreach (var characterSkill in Model.CharacterSkills)
+        if (TempData["Message"] != null)
         {
-            <button type="submit" asp-page-handler="forget" asp-route-skillId="@characterSkill.SkillId" asp-route-skillName="@characterSkill.Skill.Name">
-            @characterSkill.Skill.Name
-            </button>
+
+            <aside class="alert alert-@TempData["MessageAlert"]" role="alert">@TempData["Message"]</aside>
+
         }
-    </div>
-
-    <div>
-        <button type="submit">Save</button>
-    </div>
-</form>
-
-<h2>All skills</h2>
-<form asp-page-handler="learn">
-@foreach (var skill in Model.Skills)
-{
-    <button asp-page-handler="learn" asp-route-skillId=@skill.Id asp-route-skillName=@skill.Name>@skill.Name</button>
+        else
+        {
+            <aside class="alert alert-dismissible"></aside>
+        }
 }
-</form>
+    <article>
+        <p>Total CP: @Model.TotalCp</p>
+        <p>CP Spent: @Model.CpSpent</p>
+        <p>CP available to spend: @Model.CpRemaining</p>
+        <p>Games attended: @Model.GamesAttended</p>
+    </article>
+
+    <form method="post">
+        <div asp-validation-summary="All"></div>
+        <input asp-for="Character.Id" type="hidden"/>
+        <div>
+            <label asp-for="Character.Name"></label>
+            <div>
+                <input asp-for="Character.Name"/>
+                <span asp-validation-for="Character.Name"></span>
+            </div>
+            <h2>Skills:</h2>
+            @foreach (var characterSkill in Model.CharacterSkills)
+            {
+                <button type="submit" asp-page-handler="forget" asp-route-skillId="@characterSkill.SkillId" asp-route-skillName="@characterSkill.Skill.Name">
+                    @characterSkill.Skill.Name
+                </button>
+            }
+        </div>
+
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+
+    <h2>All skills</h2>
+    <form asp-page-handler="learn">
+        @foreach (var skill in Model.Skills)
+        {
+            <button asp-page-handler="learn" asp-route-skillId=@skill.Id asp-route-skillName=@skill.Name>@skill.Name</button>
+        }
+    </form>
