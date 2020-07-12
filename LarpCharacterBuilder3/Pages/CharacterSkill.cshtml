@@ -4,12 +4,8 @@
     ViewData["Title"] = "All Character Skill";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-<h1>All Characters</h1>
+<h1>Learned Skills</h1>
+<p>The following table shows all the skills learned by all characters.</p>
 <form method="post">
     <table class="table">
         <thead>
@@ -26,7 +22,7 @@
                 <td>@characterskill.Skill.Name</td>
                 <td>
                     <button type="submit" asp-page-handler="delete"
-                            asp-route-characterId="@characterskill.CharacterId" asp-route-skillId="@characterskill.SkillId">delete
+                            asp-route-characterId="@characterskill.CharacterId" asp-route-skillId="@characterskill.SkillId">forget
                     </button>
                 </td>
             </tr>

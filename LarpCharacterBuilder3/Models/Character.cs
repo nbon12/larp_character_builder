@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using LarpCharacterBuilder3.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace LarpCharacterBuilder3.Models
 {

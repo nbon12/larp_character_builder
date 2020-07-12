@@ -108,7 +108,7 @@ namespace LarpCharacterBuilder3.PageModels.Character
             }
             Message = "Forgot " + skillName;
             Console.WriteLine("INFO: SKILL LEARNED: " + Character.Id + " learned " + skillName);
-            MessageAlert = "info";
+            MessageAlert = "secondary";
             return RedirectToPage();
         }
     }
