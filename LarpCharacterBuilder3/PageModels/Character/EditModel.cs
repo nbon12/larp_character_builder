@@ -21,7 +21,7 @@ namespace LarpCharacterBuilder3.PageModels.Character
 
         [BindProperty] public Models.Character Character { get; set; }
         [BindProperty] public IList<Models.CharacterSkill> CharacterSkills { get; set; }
-
+        [BindProperty] public IList<Models.Skill> Skills { get; set; }
         public async Task<IActionResult> OnGetAsync(long id)
         {
             Character = await _larpBuilderContext.Character.FindAsync(id);
@@ -29,6 +29,7 @@ namespace LarpCharacterBuilder3.PageModels.Character
                 .Where(c => c.CharacterId == id)
                 .Include(c => c.Skill)
                 .ToList();
+            Skills = _larpBuilderContext.Skill.ToList();
             if (Character == null)
             {
                 return RedirectToPage("./Index");
@@ -56,6 +57,37 @@ namespace LarpCharacterBuilder3.PageModels.Character
             }
 
             return RedirectToPage("./Index");
+        }
+
+        public async Task<IActionResult> OnPostLearn(int skillId)
+        {
+            Console.WriteLine("TODO: add a skill on character with ID: " + Character.Id + "and skill ID: " + skillId);
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            var learnMe = new Models.CharacterSkill()
+            {
+                CharacterId = Character.Id,
+                SkillId = skillId
+            };
+            _larpBuilderContext.CharacterSkills.Add(learnMe);
+            await _larpBuilderContext.SaveChangesAsync();
+
+            return RedirectToPage();
+        }
+        public async Task<IActionResult> OnPostForget(long skillId)
+        {
+            var contact = await _larpBuilderContext.CharacterSkills.FindAsync(Character.Id, skillId);
+
+            if (contact != null)
+            {
+                _larpBuilderContext.CharacterSkills.Remove(contact);
+                await _larpBuilderContext.SaveChangesAsync();
+            }
+
+            return RedirectToPage();
         }
     }
 }

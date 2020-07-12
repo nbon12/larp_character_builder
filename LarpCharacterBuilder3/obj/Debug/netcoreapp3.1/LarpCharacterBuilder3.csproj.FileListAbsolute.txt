@@ -385,3 +385,4 @@ C:\Users\nbonilla\Documents\larp_character_builder\LarpCharacterBuilder3\bin\Deb
 C:\Users\nbonilla\Documents\larp_character_builder\LarpCharacterBuilder3\bin\Debug\netcoreapp3.1\Microsoft.Spatial.dll
 C:\Users\nbonilla\Documents\larp_character_builder\LarpCharacterBuilder3\obj\Debug\netcoreapp3.1\Razor\Pages\Characters.cshtml.g.cs
 C:\Users\nbonilla\Documents\larp_character_builder\LarpCharacterBuilder3\obj\Debug\netcoreapp3.1\Razor\Pages\CharacterSheet.cshtml.g.cs
+C:\Users\nbonilla\Documents\larp_character_builder\LarpCharacterBuilder3\obj\Debug\netcoreapp3.1\Razor\Pages\CharacterSkill.cshtml.g.cs

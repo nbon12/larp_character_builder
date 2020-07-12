@@ -1,5 +1,6 @@
 ﻿@page "{id:long}"
 @using LarpCharacterBuilder3.Models
+@using System.Linq
 @model LarpCharacterBuilder3.PageModels.Character.EditModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
@@ -21,7 +22,10 @@
         <h2>Skills:</h2> 
         @foreach (var CharacterSkill in Model.CharacterSkills)
         {
-            @: <button>@CharacterSkill.Skill.Name</button>
+            
+            @:<button type="submit" asp-page-handler="forget" asp-route-skillId="@CharacterSkill.SkillId">
+            @CharacterSkill.Skill.Name
+            @:</button>
         }
 
         
@@ -30,4 +34,12 @@
     <div>
         <button type="submit">Save</button>
     </div>
+</form>
+
+<h2>All skills</h2>
+<form asp-page-handler="learn">
+@foreach (var Skill in Model.Skills)
+{
+    <button asp-page-handler="learn" asp-route-skillId=@Skill.Id>@Skill.Name ID: @Skill.Id</button>
+}
 </form>

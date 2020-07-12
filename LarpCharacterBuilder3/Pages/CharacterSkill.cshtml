@@ -1,0 +1,39 @@
+﻿@page
+@model LarpCharacterBuilder3.PageModels.CharacterSkill.IndexModel
+@{
+    ViewData["Title"] = "All Character Skill";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<h1>All Characters</h1>
+<form method="post">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var characterskill in Model.CharacterSkills)
+        {
+            <tr>
+                <td> @characterskill.CharacterId</td>
+                <td>@characterskill.SkillId</td>
+                <td>@characterskill.Character.Name</td>
+                <td>@characterskill.Skill.Name</td>
+                <td>
+                    <button type="submit" asp-page-handler="delete"
+                            asp-route-characterId="@characterskill.CharacterId" asp-route-skillId="@characterskill.SkillId">delete
+                    </button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <a asp-page="Create">Create New</a>
+</form>
