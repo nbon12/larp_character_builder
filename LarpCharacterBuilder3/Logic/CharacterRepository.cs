@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using HotChocolate;
 using LarpCharacterBuilder3.Data;
@@ -23,6 +24,11 @@ namespace LarpCharacterBuilder3.Logic
         {
             Console.WriteLine("Validation Not performed.");
             return entity;
+        }
+
+        public async Task<int> GetCpRemaining(long characterId)
+        {
+            return 0;
         }
     }
 }

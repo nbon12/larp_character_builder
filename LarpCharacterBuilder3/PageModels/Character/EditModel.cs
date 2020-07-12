@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LarpCharacterBuilder3.Data;
+using LarpCharacterBuilder3.Logic;
 using LarpCharacterBuilder3.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,16 +15,18 @@ namespace LarpCharacterBuilder3.PageModels.Character
     public class EditModel : PageModel
     {
         private readonly LarpBuilderContext _larpBuilderContext;
+        private readonly ICharacterRepository _characterRepository;
 
-        public EditModel(LarpBuilderContext larpBuilderContext)
+        public EditModel(LarpBuilderContext larpBuilderContext, ICharacterRepository characterRepository)
         {
             _larpBuilderContext = larpBuilderContext;
+            _characterRepository = characterRepository;
         }
 
         [BindProperty] public Models.Character Character { get; set; }
         [BindProperty] public IList<Models.CharacterSkill> CharacterSkills { get; set; }
         [BindProperty] public IList<Models.Skill> Skills { get; set; }
-        
+        [BindProperty] public int CpRemaining { get; set; }
         
         [TempData] public string Message { get; set; }
         [TempData] public string MessageAlert { get; set; } // danger / primary / warning / info / see bootstrap for HTML alert types.
@@ -36,6 +39,7 @@ namespace LarpCharacterBuilder3.PageModels.Character
                 .Include(c => c.Skill)
                 .ToList();
             Skills = _larpBuilderContext.Skill.ToList();
+            CpRemaining = await _characterRepository.GetCpRemaining(Character.Id);
             if (Character == null)
             {
                 return RedirectToPage("./Index");
