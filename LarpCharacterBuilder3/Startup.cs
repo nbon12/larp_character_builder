@@ -1,6 +1,8 @@
 
 using System;
+using System.Data;
 using AutoMapper;
+using LarpCharacterBuilder3.Core.Dapper;
 using LarpCharacterBuilder3.Data;
 using LarpCharacterBuilder3.Logic;
 using LarpCharacterBuilder3.Models;
@@ -10,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MySql.Data.MySqlClient;
 
 namespace LarpCharacterBuilder3
 {
@@ -30,6 +33,10 @@ namespace LarpCharacterBuilder3
                 options.UseMySql("server=localhost;port=3306;database=larpbuilder;uid=root;pwd=legolas indigo;"));
             services.AddScoped<ICharacterRepository, CharacterRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IDapperDataSession, DapperDataSession>();
+            services.AddTransient<IDbConnection>((sp) =>
+                new MySqlConnection(
+                    "server=localhost;port=3306;database=larpbuilder;uid=root;pwd=legolas indigo;"));  //SqlConnection(dbConnectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

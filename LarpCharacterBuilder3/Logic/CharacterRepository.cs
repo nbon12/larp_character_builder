@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using HotChocolate;
+using LarpCharacterBuilder3.Core.Dapper;
 using LarpCharacterBuilder3.Data;
 using LarpCharacterBuilder3.Models;
 using MySqlConnector.Logging;
@@ -16,7 +17,7 @@ namespace LarpCharacterBuilder3.Logic
 
         public CharacterRepository(
             [Service] LarpBuilderContext dbContext,
-            [Service] IMapper mapper) : base(dbContext, mapper)
+            [Service] IMapper mapper, [Service] IDapperDataSession dapperDataSession) : base(dbContext, mapper)
         {
         }
 
