@@ -9,7 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="5.2.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="11.0.0-preview.134" />
     <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="11.0.0-preview.134" />
     <PackageReference Include="HotChocolate.Types.Selections" Version="11.0.0-preview.134" />

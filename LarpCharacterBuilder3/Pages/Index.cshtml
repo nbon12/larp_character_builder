@@ -22,7 +22,7 @@
             @foreach (var character in Model.Characters)
             {
                 <tr>
-                    <td> @character.Id  </td>
+                    <td>@character.Id</td>
                     <td>@character.Name</td>
                     <td>
                         <a asp-page="./CharacterSheet" asp-route-id="@character.Id">Edit</a> |
