@@ -14,16 +14,14 @@
     <table class="table">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Name</th>
+            <th>Skill</th>
         </tr>
         </thead>
         <tbody>
         @foreach (var characterskill in Model.CharacterSkills)
         {
             <tr>
-                <td> @characterskill.CharacterId</td>
-                <td>@characterskill.SkillId</td>
                 <td>@characterskill.Character.Name</td>
                 <td>@characterskill.Skill.Name</td>
                 <td>
