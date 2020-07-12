@@ -42,6 +42,10 @@
               "target": "Package",
               "version": "[7.0.0, )"
             },
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.35, )"
+            },
             "HotChocolate.AspNetCore": {
               "target": "Package",
               "version": "[11.0.0-preview.134, )"
