@@ -46,12 +46,14 @@
                         <input asp-for="Character.Name"/>
                         <span asp-validation-for="Character.Name"></span>
                     </div>
+                    <div class="list-group">
                     @foreach (var characterSkill in Model.CharacterSkills)
                     {
-                        <button type="submit" asp-page-handler="forget" asp-route-skillId="@characterSkill.SkillId" asp-route-skillName="@characterSkill.Skill.Name">
+                        <button class="btn btn-outline-warning" type="submit" asp-page-handler="forget" asp-route-skillId="@characterSkill.SkillId" asp-route-skillName="@characterSkill.Skill.Name">
                             @characterSkill.Skill.Name
                         </button>
                     }
+                    </div>
                 </div>
 
                 <div>
@@ -66,7 +68,7 @@
         <section class="card-body">
             @foreach (var skill in Model.Skills)
             {
-                <button id="skill-@skill.Id" asp-page-handler="learn" asp-route-skillId=@skill.Id asp-route-skillName=@skill.Name>@skill.Name</button>
+                <button class="btn btn-primary" id="skill-@skill.Id" asp-page-handler="learn" asp-route-skillId=@skill.Id asp-route-skillName=@skill.Name>@skill.Name</button>
             }
         </section>
     </form>
