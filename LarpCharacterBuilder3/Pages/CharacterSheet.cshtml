@@ -7,9 +7,9 @@
     ViewData["Title"] = "Home page";
 }
 
-<!DOCTYPE html>
 
 <h1>Character Sheet - @Model.Character.Name</h1>
+    
 @{
         if (TempData["Message"] != null)
         {
@@ -22,40 +22,53 @@
             <aside class="alert alert-dismissible"></aside>
         }
 }
-    <article>
-        <p>Total CP: @Model.TotalCp</p>
-        <p>CP Spent: @Model.CpSpent</p>
-        <p>CP available to spend: @Model.CpRemaining</p>
-        <p>Games attended: @Model.GamesAttended</p>
-    </article>
-
-    <form method="post">
-        <div asp-validation-summary="All"></div>
-        <input asp-for="Character.Id" type="hidden"/>
-        <div>
-            <label asp-for="Character.Name"></label>
-            <div>
-                <input asp-for="Character.Name"/>
-                <span asp-validation-for="Character.Name"></span>
+<section class="row">
+    <div class="col-md-3">
+        <article class="card">
+            <h3 class="card-header">CP</h3>
+            <div class="card-body">
+                <p class="card-text">Total CP: @Model.TotalCp</p>
+                <p class="card-text">CP Spent: @Model.CpSpent</p>
+                <p class="card-text">CP available to spend: @Model.CpRemaining</p>
+                <p class="card-text">Games attended: @Model.GamesAttended</p>
             </div>
-            <h2>Skills:</h2>
-            @foreach (var characterSkill in Model.CharacterSkills)
+        </article>
+    </div>
+    <div class="col-md-3">
+        <form method="post" class="card">
+            <h3 class="card-header">Known Skills</h3>
+            <secton class="card-body">
+                <div asp-validation-summary="All"></div>
+                <input asp-for="Character.Id" type="hidden"/>
+                <div>
+                    <label asp-for="Character.Name"></label>
+                    <div>
+                        <input asp-for="Character.Name"/>
+                        <span asp-validation-for="Character.Name"></span>
+                    </div>
+                    @foreach (var characterSkill in Model.CharacterSkills)
+                    {
+                        <button type="submit" asp-page-handler="forget" asp-route-skillId="@characterSkill.SkillId" asp-route-skillName="@characterSkill.Skill.Name">
+                            @characterSkill.Skill.Name
+                        </button>
+                    }
+                </div>
+
+                <div>
+                    <button type="submit">Save</button>
+                </div>
+            </secton>
+        </form>
+    </div>
+    <div class="col-md-6">
+    <form asp-page-handler="learn" class="card">
+        <h3 class="card-header">All skills</h3>
+        <section class="card-body">
+            @foreach (var skill in Model.Skills)
             {
-                <button type="submit" asp-page-handler="forget" asp-route-skillId="@characterSkill.SkillId" asp-route-skillName="@characterSkill.Skill.Name">
-                    @characterSkill.Skill.Name
-                </button>
+                <button id="skill-@skill.Id" asp-page-handler="learn" asp-route-skillId=@skill.Id asp-route-skillName=@skill.Name>@skill.Name</button>
             }
-        </div>
-
-        <div>
-            <button type="submit">Save</button>
-        </div>
+        </section>
     </form>
-
-    <h2>All skills</h2>
-    <form asp-page-handler="learn">
-        @foreach (var skill in Model.Skills)
-        {
-            <button asp-page-handler="learn" asp-route-skillId=@skill.Id asp-route-skillName=@skill.Name>@skill.Name</button>
-        }
-    </form>
+    </div>
+</section>
