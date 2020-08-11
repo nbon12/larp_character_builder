@@ -38,12 +38,12 @@ namespace LarpCharacterBuilder3
             services.AddTransient<IDbConnection>((sp) =>
                 new MySqlConnection(
                     "server=localhost;port=3306;database=larpbuilder;uid=root;pwd=legolas indigo;"));
-            services.AddAuthorization(options =>
+            /*services.AddAuthorization(options =>
             {
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
-            });
+            });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

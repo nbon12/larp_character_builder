@@ -23,6 +23,22 @@
         }
 }
 <section class="row">
+    <form method="post" class="col-md-12">
+        <input asp-for="Character.Id" type="hidden"/>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Character Name</span>
+            </div>
+            <span asp-validation-for="Character.Name"></span>
+            <input type="text" asp-for="Character.Name" class="form-control" placeholder="Character Name" aria-label="Character name" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="submit" id="button-addon2">Change Name</button>
+            </div>
+            </div>
+    </form>
+</section>
+<br/>
+<section class="row">
     <div class="col-md-3">
         <article class="card">
             <h3 class="card-header">CP</h3>
@@ -38,14 +54,7 @@
         <form method="post" class="card">
             <h3 class="card-header">Known Skills</h3>
             <secton class="card-body">
-                <div asp-validation-summary="All"></div>
-                <input asp-for="Character.Id" type="hidden"/>
                 <div>
-                    <label asp-for="Character.Name"></label>
-                    <div>
-                        <input asp-for="Character.Name"/>
-                        <span asp-validation-for="Character.Name"></span>
-                    </div>
                     <div class="list-group">
                     @foreach (var characterSkill in Model.CharacterSkills)
                     {
@@ -56,9 +65,7 @@
                     </div>
                 </div>
 
-                <div>
-                    <button type="submit">Save</button>
-                </div>
+
             </secton>
         </form>
     </div>

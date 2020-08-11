@@ -72,7 +72,9 @@ namespace LarpCharacterBuilder3.PageModels.Character
                 throw new Exception("Character " + Character.Id + " not found!");
             }
 
-            return RedirectToPage("./Index");
+            Message = "Name saved";
+            MessageAlert = "success";
+            return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostLearn(int skillId, string skillName)
