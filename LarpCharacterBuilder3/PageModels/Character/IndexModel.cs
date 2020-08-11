@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using LarpCharacterBuilder3.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace LarpCharacterBuilder3.PageModels.Character
 
         public IList<Models.Character> Characters { get; set; }
 
+        
         public async Task OnGetAsync()
         {
             Characters = await _context.Character.ToListAsync();

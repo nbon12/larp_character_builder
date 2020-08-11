@@ -6,6 +6,7 @@ using LarpCharacterBuilder3.Core.Dapper;
 using LarpCharacterBuilder3.Data;
 using LarpCharacterBuilder3.Logic;
 using LarpCharacterBuilder3.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +37,13 @@ namespace LarpCharacterBuilder3
             services.AddScoped<IDapperDataSession, DapperDataSession>();
             services.AddTransient<IDbConnection>((sp) =>
                 new MySqlConnection(
-                    "server=localhost;port=3306;database=larpbuilder;uid=root;pwd=legolas indigo;"));  //SqlConnection(dbConnectionString));
+                    "server=localhost;port=3306;database=larpbuilder;uid=root;pwd=legolas indigo;"));
+            services.AddAuthorization(options =>
+            {
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
