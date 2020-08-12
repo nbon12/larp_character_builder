@@ -46,21 +46,15 @@ namespace LarpCharacterBuilder3.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ParentSkillId = table.Column<long>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Cost = table.Column<int>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    ReplacesParent = table.Column<bool>(nullable: false),
-                    SkillId = table.Column<long>(nullable: true)
+                    ReplacesParent = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Skill", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Skill_Skill_SkillId",
-                        column: x => x.SkillId,
-                        principalTable: "Skill",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -146,11 +140,6 @@ namespace LarpCharacterBuilder3.Migrations
                 name: "IX_CpGrant_CharacterId",
                 table: "CpGrant",
                 column: "CharacterId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Skill_SkillId",
-                table: "Skill",
-                column: "SkillId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

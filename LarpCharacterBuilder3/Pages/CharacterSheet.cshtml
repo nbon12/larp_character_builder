@@ -22,6 +22,7 @@
             <aside class="alert alert-dismissible"></aside>
         }
 }
+
 <section class="row">
     <form method="post" class="col-md-12">
         <input asp-for="Character.Id" type="hidden"/>
@@ -50,6 +51,7 @@
             </div>
         </article>
     </div>
+
     <div class="col-md-3">
         <form method="post" class="card">
             <h3 class="card-header">Known Skills</h3>
@@ -61,6 +63,7 @@
                         <button class="btn btn-outline-warning" type="submit" asp-page-handler="forget" asp-route-skillId="@characterSkill.SkillId" asp-route-skillName="@characterSkill.Skill.Name">
                             @characterSkill.Skill.Name
                         </button>
+                        
                     }
                     </div>
                 </div>

@@ -41,7 +41,7 @@ namespace LarpCharacterBuilder3.PageModels.Character
                 .Where(c => c.CharacterId == id)
                 .Include(c => c.Skill)
                 .ToList();
-            Skills = _larpBuilderContext.Skill.ToList();
+            Skills = _larpBuilderContext.Skill.Include(s => s.Children).ToList();
             CpRemaining = _characterRepository.GetCpRemaining(Character.Id);
             GamesAttended = _characterRepository.GetGamesAttendedCount(Character.Id);
             CpSpent = _characterRepository.GetCpSpent(Character.Id);

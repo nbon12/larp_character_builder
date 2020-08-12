@@ -130,15 +130,13 @@ namespace LarpCharacterBuilder3.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<long?>("ParentSkillId")
+                        .HasColumnType("bigint");
+
                     b.Property<bool>("ReplacesParent")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<long?>("SkillId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SkillId");
 
                     b.ToTable("Skill");
                 });
@@ -180,13 +178,6 @@ namespace LarpCharacterBuilder3.Migrations
                         .HasForeignKey("CharacterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("LarpCharacterBuilder3.Models.Skill", b =>
-                {
-                    b.HasOne("LarpCharacterBuilder3.Models.Skill", null)
-                        .WithMany("Children")
-                        .HasForeignKey("SkillId");
                 });
 #pragma warning restore 612, 618
         }
