@@ -7,7 +7,6 @@
     ViewData["Title"] = "Home page";
 }
 
-
 <h1>Character Sheet - @Model.Character.Name</h1>
     
 @{
@@ -21,6 +20,29 @@
         {
             <aside class="alert alert-dismissible"></aside>
         }
+}
+@functions 
+{
+    string WelcomeMessage(string username)
+    {
+        <p>Welcome, @username.</p>
+        return username;
+    }
+
+    string DisplayChildren(IEnumerable<Skill> children)
+    {
+        @:<ul>
+        foreach (Skill childSkill in children)
+        {
+            <li>@childSkill.Name</li>
+            if (childSkill.Children != null && childSkill.Children.Count > 0)
+            {
+                DisplayChildren(childSkill.Children);
+            }
+        }
+        @:</ul>
+        return "";
+    }
 }
 
 <section class="row">
@@ -63,7 +85,12 @@
                         <button class="btn btn-outline-warning" type="submit" asp-page-handler="forget" asp-route-skillId="@characterSkill.SkillId" asp-route-skillName="@characterSkill.Skill.Name">
                             @characterSkill.Skill.Name
                         </button>
-                        
+                        <ul>
+                        @foreach (Skill child in characterSkill.Skill.Children)
+                        {
+                           <li>HOOBLA: @WelcomeMessage(child.Name)</li>
+                        }
+                        </ul>
                     }
                     </div>
                 </div>
@@ -76,9 +103,10 @@
     <form asp-page-handler="learn" class="card">
         <h3 class="card-header">All skills</h3>
         <section class="card-body">
-            @foreach (var skill in Model.Skills)
+            @foreach (var skill in Model.PrimarySkills)
             {
                 <button class="btn btn-primary" id="skill-@skill.Id" asp-page-handler="learn" asp-route-skillId=@skill.Id asp-route-skillName=@skill.Name>@skill.Name</button>
+                @DisplayChildren(skill.Children);
             }
         </section>
     </form>

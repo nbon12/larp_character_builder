@@ -11,7 +11,8 @@ namespace LarpCharacterBuilder3.Logic
 {
     public interface ISkillRepository
     {
-        
+        public IEnumerable<Skill> GetSkillTree();
+        public IEnumerable<Skill> GetPrimarySkills();
     }
     public class SkillRepository : RepositoryBase<Skill>, ISkillRepository
     {
@@ -45,6 +46,8 @@ namespace LarpCharacterBuilder3.Logic
             }
             return skills;
         }
+        
+        
         public override Skill validateUpdate(long id, Skill entity)
         {
             throw new System.NotImplementedException();

@@ -16,16 +16,21 @@ namespace LarpCharacterBuilder3.PageModels.Character
     {
         private readonly LarpBuilderContext _larpBuilderContext;
         private readonly ICharacterRepository _characterRepository;
+        private readonly ISkillRepository _skillRepository;
 
-        public EditModel(LarpBuilderContext larpBuilderContext, ICharacterRepository characterRepository)
+        public EditModel(LarpBuilderContext larpBuilderContext, ICharacterRepository characterRepository,
+            ISkillRepository skillRepository)
         {
             _larpBuilderContext = larpBuilderContext;
             _characterRepository = characterRepository;
+            _skillRepository = skillRepository;
         }
 
         [BindProperty] public Models.Character Character { get; set; }
         [BindProperty] public IList<Models.CharacterSkill> CharacterSkills { get; set; }
-        [BindProperty] public IList<Models.Skill> Skills { get; set; }
+        [BindProperty] public IEnumerable<Skill> PrimarySkills { get; set; } = new List<Skill>();
+
+        [BindProperty] public IEnumerable<Skill> Skills { get; set; }
         [BindProperty] public int CpRemaining { get; set; }
         [BindProperty] public int GamesAttended { get; set; }
         [BindProperty] public int TotalCp { get; set; }
@@ -41,7 +46,8 @@ namespace LarpCharacterBuilder3.PageModels.Character
                 .Where(c => c.CharacterId == id)
                 .Include(c => c.Skill)
                 .ToList();
-            Skills = _larpBuilderContext.Skill.Include(s => s.Children).ToList();
+            Skills = _skillRepository.GetSkillTree();
+            PrimarySkills = _skillRepository.GetPrimarySkills();
             CpRemaining = _characterRepository.GetCpRemaining(Character.Id);
             GamesAttended = _characterRepository.GetGamesAttendedCount(Character.Id);
             CpSpent = _characterRepository.GetCpSpent(Character.Id);

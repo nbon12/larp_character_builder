@@ -33,6 +33,7 @@ namespace LarpCharacterBuilder3
             services.AddDbContext<LarpBuilderContext>(options =>
                 options.UseMySql("server=localhost;port=3306;database=larpbuilder;uid=root;pwd=legolas indigo;"));
             services.AddScoped<ICharacterRepository, CharacterRepository>();
+            services.AddScoped<ISkillRepository, SkillRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IDapperDataSession, DapperDataSession>();
             services.AddTransient<IDbConnection>((sp) =>

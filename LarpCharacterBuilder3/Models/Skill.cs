@@ -20,6 +20,6 @@ namespace LarpCharacterBuilder3.Models
         public bool ReplacesParent { get; set; } = false;
 
         [NotMapped]
-        public ICollection<Skill> Children { get; set; }
+        public ICollection<Skill> Children { get; set; } = new List<Skill>();
     }
 }
