@@ -11,8 +11,8 @@ namespace LarpCharacterBuilder3.Logic
 {
     public interface ISkillRepository
     {
-        public IEnumerable<Skill> GetSkillTree();
-        public IEnumerable<Skill> GetPrimarySkills();
+        public HashSet<Skill> GetSkillTree();
+        public HashSet<Skill> GetPrimarySkills();
     }
     public class SkillRepository : RepositoryBase<Skill>, ISkillRepository
     {
@@ -31,9 +31,9 @@ namespace LarpCharacterBuilder3.Logic
             _dapperDataSessionLarpBuilderContext = dapperDataSessionLarpBuilderContext;
         }
 
-        public IEnumerable<Skill> GetSkillTree()
+        public HashSet<Skill> GetSkillTree()
         {
-            var skills = _dbContextEf.Skill.ToList();
+            var skills = _dbContextEf.Skill.ToHashSet();
             foreach(Skill skill in skills)
             {
                 foreach (Skill childskill in skills)
@@ -46,8 +46,21 @@ namespace LarpCharacterBuilder3.Logic
             }
             return skills;
         }
-        
-        
+
+        public HashSet<Skill> GetPrimarySkills()
+        {
+            var skills = GetSkillTree();
+            var primarySkills = new HashSet<Skill>();
+            foreach (Skill skill in skills)
+            {
+                if (skill.ParentSkillId == null)
+                {
+                    primarySkills.Add(skill);
+                }
+            }
+            return primarySkills;
+        }
+
         public override Skill validateUpdate(long id, Skill entity)
         {
             throw new System.NotImplementedException();

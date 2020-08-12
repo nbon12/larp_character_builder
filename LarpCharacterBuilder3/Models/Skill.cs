@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LarpCharacterBuilder3.Models
@@ -11,6 +12,16 @@ namespace LarpCharacterBuilder3.Models
         public int? Cost { get; set; }
         public string Description { get; set; }
         public ICollection<CharacterSkill> CharacterSkills;
+
+        public override bool Equals(object obj)
+        {
+            return false;
+        }
+        
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
 
         /// <summary>
         /// ReplacesParent indicates whether or not the parent skill should be replaced by this child skill.
