@@ -29,19 +29,37 @@
         return username;
     }
 
-    string DisplayChildren(IEnumerable<Skill> children)
+    async Task<string> DisplayChildren(IEnumerable<Skill> children)
     {
         @:<ul>
         foreach (Skill childSkill in children)
         {
-            <li>@childSkill.Name</li>
+            <button class="btn btn-@CharacterKnows(childSkill)"
+                    id="skill-@childSkill.Id" asp-page-handler="learn"
+                    asp-route-skillId=@childSkill.Id
+                    asp-route-skillName=@childSkill.Name>
+                @childSkill.Name
+            </button>
             if (childSkill.Children != null && childSkill.Children.Count > 0)
             {
-                DisplayChildren(childSkill.Children);
+                await DisplayChildren(childSkill.Children);
             }
         }
         @:</ul>
         return "";
+    }
+
+    string CharacterKnows(Skill skill)
+    {
+        //if(Model..Contains(skill)) return "btn-success";
+        foreach (CharacterSkill characterSkill in Model.CharacterSkills.ToList())
+        {
+            if (characterSkill.SkillId == skill.Id)
+            {
+                return "success";
+            }
+        }
+        return "primary";
     }
 }
 
@@ -88,7 +106,7 @@
                         <ul>
                         @foreach (Skill child in characterSkill.Skill.Children)
                         {
-                           <li>HOOBLA: @WelcomeMessage(child.Name)</li>
+                           <li>@WelcomeMessage(child.Name)</li>
                         }
                         </ul>
                     }
@@ -105,8 +123,8 @@
         <section class="card-body">
             @foreach (var skill in Model.PrimarySkills)
             {
-                <button class="btn btn-primary" id="skill-@skill.Id" asp-page-handler="learn" asp-route-skillId=@skill.Id asp-route-skillName=@skill.Name>@skill.Name</button>
-                @DisplayChildren(skill.Children);
+                <button class="btn btn-@CharacterKnows(skill)" id="skill-@skill.Id" asp-page-handler="learn" asp-route-skillId=@skill.Id asp-route-skillName=@skill.Name>@skill.Name</button>
+                @await DisplayChildren(skill.Children);
             }
         </section>
     </form>
