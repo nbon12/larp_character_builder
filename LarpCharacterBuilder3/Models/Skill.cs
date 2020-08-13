@@ -15,6 +15,11 @@ namespace LarpCharacterBuilder3.Models
 
         public override bool Equals(object obj)
         {
+            var skill = obj as Skill;
+            if (obj != null)
+            {
+                return skill.Name == Name;
+            }
             return false;
         }
         
@@ -31,6 +36,6 @@ namespace LarpCharacterBuilder3.Models
         public bool ReplacesParent { get; set; } = false;
 
         [NotMapped]
-        public ICollection<Skill> Children { get; set; } = new List<Skill>();
+        public HashSet<Skill> Children { get; set; } = new HashSet<Skill>();
     }
 }
