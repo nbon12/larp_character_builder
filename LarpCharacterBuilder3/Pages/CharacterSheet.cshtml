@@ -34,12 +34,20 @@
         @:<ul>
         foreach (Skill childSkill in children)
         {
-            <button class="btn btn-@CharacterKnows(childSkill)"
-                    id="skill-@childSkill.Id" asp-page-handler="learn"
-                    asp-route-skillId=@childSkill.Id
-                    asp-route-skillName=@childSkill.Name>
-                @childSkill.Name
-            </button>
+            if (CharacterKnows(childSkill))
+            {
+                <button class="btn btn-success" id="skill-@childSkill.Id-forget" asp-page-handler="forget" asp-route-skillId=@childSkill.Id asp-route-skillName=@childSkill.Name>@childSkill.Name</button>
+            }
+            else
+            {
+                <button class="btn btn-outline-primary"
+                        id="skill-@childSkill.Id" asp-page-handler="learn"
+                        asp-route-skillId=@childSkill.Id
+                        asp-route-skillName=@childSkill.Name>
+                    @childSkill.Name
+                </button>
+            }
+
             if (childSkill.Children != null && childSkill.Children.Count > 0)
             {
                 await DisplayChildren(childSkill.Children);
@@ -49,17 +57,17 @@
         return "";
     }
 
-    string CharacterKnows(Skill skill)
+    bool CharacterKnows(Skill skill)
     {
         //if(Model..Contains(skill)) return "btn-success";
         foreach (CharacterSkill characterSkill in Model.CharacterSkills.ToList())
         {
             if (characterSkill.SkillId == skill.Id)
             {
-                return "success";
+                return true;
             }
         }
-        return "primary";
+        return false;
     }
 }
 
@@ -103,12 +111,6 @@
                         <button class="btn btn-outline-warning" type="submit" asp-page-handler="forget" asp-route-skillId="@characterSkill.SkillId" asp-route-skillName="@characterSkill.Skill.Name">
                             @characterSkill.Skill.Name
                         </button>
-                        <ul>
-                        @foreach (Skill child in characterSkill.Skill.Children)
-                        {
-                           <li>@WelcomeMessage(child.Name)</li>
-                        }
-                        </ul>
                     }
                     </div>
                 </div>
@@ -123,7 +125,14 @@
         <section class="card-body">
             @foreach (var skill in Model.PrimarySkills)
             {
-                <button class="btn btn-@CharacterKnows(skill)" id="skill-@skill.Id" asp-page-handler="learn" asp-route-skillId=@skill.Id asp-route-skillName=@skill.Name>@skill.Name</button>
+                if (CharacterKnows(skill))
+                {
+                    <button class="btn btn-success" id="skill-@skill.Id-forget" asp-page-handler="forget" asp-route-skillId=@skill.Id asp-route-skillName=@skill.Name>@skill.Name</button>
+                }
+                else
+                {
+                    <button class="btn btn-outline-primary" id="skill-@skill.Id-learn" asp-page-handler="learn" asp-route-skillId=@skill.Id asp-route-skillName=@skill.Name>@skill.Name</button>
+                }
                 @await DisplayChildren(skill.Children);
             }
         </section>
