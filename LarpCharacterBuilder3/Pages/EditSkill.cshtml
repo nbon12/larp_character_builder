@@ -1,0 +1,33 @@
+﻿@page "{id:long}"
+@using LarpCharacterBuilder3.Models
+@model LarpCharacterBuilder3.PageModels.Skill.EditModelSkill
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Edit Skill";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>@ViewData["Title"]</h1>
+    <div>
+        Editing a Skill
+    </div>
+    <p>skill name: @Model.Skill.Name</p>
+    
+    <form method="post">
+        <input asp-for="Skill.Id" type="hidden"/>
+        Name:
+        <input asp-for="Skill.Name"/>
+        Cost:
+        <input asp-for="Skill.Cost"/>
+        Description:
+        <input asp-for="Skill.Description"/>
+        Prerequisite Skill ID:
+        <input asp-for="Skill.ParentSkillId"/>
+        <input type="submit"/>
+    </form>
+    </body>
+</html>

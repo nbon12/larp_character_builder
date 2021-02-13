@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using HotChocolate;
 using LarpCharacterBuilder3.Core.Dapper;
@@ -9,7 +11,7 @@ using LarpCharacterBuilder3.Models;
 
 namespace LarpCharacterBuilder3.Logic
 {
-    public interface ISkillRepository
+    public interface ISkillRepository : IRepository<Skill>
     {
         public HashSet<Skill> GetSkillTree();
         public HashSet<Skill> GetPrimarySkills();

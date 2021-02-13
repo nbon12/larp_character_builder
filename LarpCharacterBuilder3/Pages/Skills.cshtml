@@ -1,0 +1,44 @@
+﻿@page
+@model LarpCharacterBuilder3.PageModels.Skill.IndexModelSkill
+@{
+    ViewData["Title"] = "Skills";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Admin - Skills</h1>
+    <p>Create, modify, edit, and delete system skills.</p>
+    <p>Warning: deleting a skill causes all characters to unlearn it, and cannot undone. </p>
+    <p>Consider renaming the skill to (skillname-INACTIVE) instead of deleting</p>
+</div>
+
+<h2>All Skills</h2>
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>Prerequisite Skill ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var skill in Model.Skills)
+            {
+                <tr>
+                    <td>@skill.Id </td>
+                    <td>@skill.Name</td>
+                    <td>@skill.Cost</td>
+                    <td>@skill.ParentSkillId</td>
+                    <td>
+                        <a asp-page="./EditSkill" asp-route-id="@skill.Id">Edit</a>
+                        <button type="submit" asp-page-handler="delete"
+                                asp-route-id="@skill.Id">delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-page="CreateSkill">Create New</a>
+</form>

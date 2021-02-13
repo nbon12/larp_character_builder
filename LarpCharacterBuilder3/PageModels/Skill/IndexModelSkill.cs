@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LarpCharacterBuilder3.PageModels.Skill
 {
-    public class IndexModel : PageModel
+    public class IndexModelSkill : PageModel
     {
         private readonly LarpBuilderContext _context;
 
-        public IndexModel(LarpBuilderContext context)
+        public IndexModelSkill(LarpBuilderContext context)
         {
             _context = context;
         }

@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace LarpCharacterBuilder3.PageModels.Skill
 {
-    public class CreateModel : PageModel
+    public class CreateModelSkill : PageModel
     {
         private readonly LarpBuilderContext _context;
 
-        public CreateModel(LarpBuilderContext context)
+        public CreateModelSkill(LarpBuilderContext context)
         {
             _context = context;
         }
