@@ -396,3 +396,4 @@ C:\Users\nbonilla\Documents\larp_character_builder\LarpCharacterBuilder3\bin\Deb
 C:\Users\nbonilla\Documents\larp_character_builder\LarpCharacterBuilder3\bin\Debug\netcoreapp3.1\refs\System.Security.Permissions.dll
 C:\Users\nbonilla\Documents\larp_character_builder\LarpCharacterBuilder3\bin\Debug\netcoreapp3.1\refs\System.Security.Principal.Windows.dll
 C:\Users\nbonilla\Documents\larp_character_builder\LarpCharacterBuilder3\bin\Debug\netcoreapp3.1\refs\System.Windows.Extensions.dll
+C:\Users\nbonilla\Documents\larp_character_builder\LarpCharacterBuilder3\obj\Debug\netcoreapp3.1\Razor\Pages\CreateSkill.cshtml.g.cs

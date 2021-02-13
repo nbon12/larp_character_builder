@@ -1,0 +1,10 @@
+﻿services:
+  larpdb:
+    image: mysql:8
+    container_name: 'larpdb'
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'LarpBuilderDatabase'
+      MYSQL_ROOT_PASSWORD: 'larpbuilder'
+    ports:
+      - "3300:3306"

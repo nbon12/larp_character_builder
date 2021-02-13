@@ -1,12 +1,9 @@
-
 using System;
 using System.Data;
 using AutoMapper;
 using LarpCharacterBuilder3.Core.Dapper;
 using LarpCharacterBuilder3.Data;
 using LarpCharacterBuilder3.Logic;
-using LarpCharacterBuilder3.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -31,15 +28,15 @@ namespace LarpCharacterBuilder3
         {
             services.AddRazorPages();
             services.AddDbContext<LarpBuilderContext>(options =>
-                options.UseMySql("server=localhost;port=3306;database=larpbuilder;uid=root;pwd=legolas indigo;"));
+                options.UseMySql("server=localhost;port=3300;database=LarpBuilderDatabase;uid=root;pwd=larpbuilder;"));
             services.AddScoped<ICharacterRepository, CharacterRepository>();
             services.AddScoped<ISkillRepository, SkillRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IDapperDataSession, DapperDataSession>();
             services.AddTransient<IDbConnection>((sp) =>
                 new MySqlConnection(
-                    "server=localhost;port=3306;database=larpbuilder;uid=root;pwd=legolas indigo;"));
-            /*services.AddAuthorization(options =>
+                    "server=localhost;port=3300;database=LarpBuilderDatabase;uid=root;pwd=larpbuilder;"));
+            /*services.AAuthorization(options =>
             {
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
@@ -58,7 +55,7 @@ namespace LarpCharacterBuilder3
             {
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //app.UseHsts();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();

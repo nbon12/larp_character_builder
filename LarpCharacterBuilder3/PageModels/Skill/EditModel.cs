@@ -1,16 +1,14 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LarpCharacterBuilder3.Data;
 using LarpCharacterBuilder3.Logic;
-using LarpCharacterBuilder3.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.MySqlClient;
 
-namespace LarpCharacterBuilder3.PageModels.Character
+namespace LarpCharacterBuilder3.PageModels.Skill
 {
     public class EditModel : PageModel
     {
@@ -130,4 +128,4 @@ namespace LarpCharacterBuilder3.PageModels.Character
             return RedirectToPage();
         }
     }
-}
+}*/

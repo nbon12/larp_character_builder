@@ -1,0 +1,31 @@
+﻿@page
+@model LarpCharacterBuilder3.PageModels.Skill.CreateModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Create Skill";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>@ViewData["Title"]</h1>
+    <div>
+        Create a Skill
+    </div>
+    <p>Enter a Skill name:</p>
+    
+    <form method="post">
+        Name:
+        <input asp-for="Skill.Name" />
+        Cost:
+        <input asp-for="Skill.Cost" />
+        Description:
+        <input asp-for="Skill.Description" />
+        Prerequisite Skill ID:
+        <input asp-for="Skill.ParentSkillId" />
+        <input type="submit" />
+    </form>
+    </body>
+</html>

@@ -51,7 +51,7 @@ namespace LarpCharacterBuilder3.Logic
         {
             return _dapperDataSession.Query<int>(
                 @"
-                SELECT COALESCE(count(*), 0) FROM `larpbuilder`.characterevents ce
+                SELECT COALESCE(count(*), 0) FROM CharacterEvents ce
                 WHERE ce.CharacterId = @characterId
                 ", new {characterId = characterId}
             ).FirstOrDefault();
@@ -62,8 +62,8 @@ namespace LarpCharacterBuilder3.Logic
             return _dapperDataSession.Query<int>(
                 @"
                 SELECT COALESCE(sum(cost), 0)
-                FROM `larpbuilder`.characterskills t
-                JOIN `larpbuilder`.skill s on t.SkillId = s.Id
+                FROM CharacterSkills t
+                JOIN Skill s on t.SkillId = s.Id
                 WHERE t.CharacterId = @characterId
     
                 ", new {characterId = characterId}
